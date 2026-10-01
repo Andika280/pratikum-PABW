@@ -1,9 +1,18 @@
 <?php
 
-use App\Http\Controllers\LayananController;
 use App\Http\Controllers\DataController;
 use Illuminate\Support\Facades\Route;
+
+
+
+use App\Http\Controllers\LayananController;
 use App\Http\Controllers\BanjirController;
+
+
+
+
+
+use App\Http\Controllers\StudentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,3 +46,7 @@ Route::post('/proses-banjir', [BanjirController::class, 'proses']);
 
 Route::get('/layanan', [LayananController::class, 'form']);
 Route::post('/layanan/proses', [LayananController::class, 'proses']);
+
+
+
+Route::get('/', [StudentController::class, 'index'])->name('students.index');
