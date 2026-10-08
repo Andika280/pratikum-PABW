@@ -31,7 +31,6 @@
         </div>
     </nav>
 
-    {{-- Ini adalah terjemahan dari AppRoutes di app.jsx Anda --}}
     @yield('content')
 
 </body>
