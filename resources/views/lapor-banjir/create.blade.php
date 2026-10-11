@@ -16,6 +16,10 @@
             <label for="tinggi_air">Tinggi Genangan Air (cm):</label>
             <input type="number" name="tinggi_air" id="tinggi_air" required min="1">
 
+            {{-- Tambahan input tanggal kejadian di sini --}}
+            <label for="tanggal_kejadian">Tanggal Kejadian:</label>
+            <input type="date" name="tanggal_kejadian" id="tanggal_kejadian" required>
+
             <button type="submit">Kirim Laporan</button>
         </form>
     </div>
