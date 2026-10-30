@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-4">
-    <!-- Header Bagian Atas Tabel -->
+<div class="container mt-4">
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="fw-bold text-dark mb-0">
             <i class="fas fa-water text-primary me-2"></i> Daftar Laporan Kejadian Banjir
         </h3>
-        <a href="{{ route('lapor.create') }}" class="btn btn-primary rounded-pill shadow-sm px-4">
+        <a href="{{ route('lapor-banjir.create') }}" class="btn btn-primary rounded-pill shadow-sm px-4">
             <i class="fas fa-plus me-2"></i>Buat Laporan Baru
         </a>
     </div>
@@ -16,52 +16,79 @@
     <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-hover table-striped align-middle mb-0">
-                    <thead class="table-primary text-center">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light text-uppercase fs-7">
                         <tr>
-                            <th class="py-3" width="5%">No</th>
-                            <th class="py-3 text-start">Nama Pelapor</th>
-                            <th class="py-3 text-start"><i class="fas fa-map-marker-alt me-1 text-danger"></i> Lokasi Kejadian</th>
-                            <th class="py-3" width="18%"><i class="fas fa-ruler-vertical me-1 text-info"></i> Tinggi Air</th>
-                            <th class="py-3" width="18%"><i class="fas fa-calendar-alt me-1 text-secondary"></i> Tanggal</th>
-                            <th class="py-3" width="12%">Status</th>
+                            <th class="py-3 px-3">No</th>
+                            <th class="py-3">Foto</th>
+                            <th class="py-3">Nama Pelapor</th>
+                            <th class="py-3"><i class="fas fa-map-marker-alt text-danger me-1"></i> Lokasi</th>
+                            <th class="py-3"><i class="fas fa-ruler-vertical text-info me-1"></i> Tinggi Air</th>
+                            <th class="py-3"><i class="fas fa-calendar-alt text-secondary me-1"></i> Tanggal</th>
+                            <th class="py-3">Status</th>
+                            <th class="py-3 text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($laporans as $index => $laporan)
-                        <tr>
-                            <td class="text-center text-muted">{{ $index + 1 }}</td>
-                            <td><span class="fw-semibold">{{ $laporan->nama ?? $laporan->nama_pelapor ?? '-' }}</span></td>
-                            <td>{{ $laporan->lokasi ?? $laporan->lokasi_kejadian ?? '-' }}</td>
-                            <td class="text-center fw-bold text-secondary">{{ $laporan->tinggi_air ?? $laporan->tinggi_genangan ?? '0' }} cm</td>
-                            <td class="text-center">{{ $laporan->tanggal ?? $laporan->tanggal_kejadian ?? '-' }}</td>
-                            <td class="text-center">
-                                @php
-                                    $tinggi = $laporan->tinggi_air ?? $laporan->tinggi_genangan ?? 0;
-                                @endphp
-                                @if($tinggi > 100)
-                                    <span class="badge bg-danger rounded-pill px-3 py-2 shadow-sm">
-                                        <i class="fas fa-exclamation-triangle me-1"></i> Awas
-                                    </span>
-                                @else
-                                    <span class="badge bg-warning text-dark rounded-pill px-3 py-2 shadow-sm">
-                                        <i class="fas fa-info-circle me-1"></i> Waspada
-                                    </span>
-                                @endif
-                            </td>
-                        </tr>
+                        @forelse ($laporans as $laporan)
+                            <tr>
+                                <td class="px-3 fw-bold">{{ $laporans->firstItem() + $loop->index }}</td>
+                                <td>
+                                    @if ($laporan->foto)
+                                        <img src="{{ asset('storage/' . $laporan->foto) }}" alt="Foto Banjir" width="60" height="60" class="rounded object-fit-cover shadow-sm">
+                                    @else
+                                        <span class="text-muted small">Tidak ada</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="fw-bold">{{ $laporan->nama_pelapor }}</div>
+                                    <small class="text-muted"><i class="fas fa-phone-alt me-1"></i>{{ $laporan->no_hp }}</small>
+                                </td>
+                                <td>
+                                    {{ $laporan->lokasi }}
+                                    <div class="text-muted small">Kec. {{ $laporan->kecamatan }}</div>
+                                </td>
+                                <td><span class="fw-bold text-primary">{{ $laporan->tinggi_air }} cm</span></td>
+                                <td>{{ $laporan->tanggal_kejadian }}</td>
+                                <td>
+                                    @if($laporan->status == 'Selesai')
+                                        <span class="badge bg-success">Selesai</span>
+                                    @elseif($laporan->status == 'Diproses')
+                                        <span class="badge bg-warning text-dark">Diproses</span>
+                                    @else
+                                        <span class="badge bg-danger">Menunggu</span>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{ route('lapor-banjir.show', $laporan->id) }}" class="btn btn-info btn-sm text-white px-2 py-1" title="Lihat Detail">
+                                        <i class="fas fa-eye"></i> Lihat
+                                    </a>
+                                    <a href="{{ route('lapor-banjir.edit', $laporan->id) }}" class="btn btn-warning btn-sm text-dark px-2 py-1" title="Edit">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                    <form action="{{ route('lapor-banjir.destroy', $laporan->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm px-2 py-1" onclick="return confirm('Yakin ingin menghapus laporan ini?')" title="Hapus">
+                                            <i class="fas fa-trash"></i> Hapus
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
                         @empty
-                        <tr>
-                            <td colspan="6" class="text-center py-5 text-muted">
-                                <i class="fas fa-folder-open fa-3x mb-3 text-secondary opacity-50"></i><br>
-                                <h5>Belum ada data laporan banjir.</h5>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td colspan="8" class="text-center py-4 text-muted">Belum ada data laporan kejadian banjir.</td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-4 d-flex justify-content-center">
+        {{ $laporans->links() }}
     </div>
 </div>
 @endsection

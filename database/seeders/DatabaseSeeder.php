@@ -15,9 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
 {
-    $this->call([
-        PetugasSeeder::class,
-        LaporanSeeder::class,
+    \App\Models\User::factory()->create([
+        'name' => 'Admin BPBD',
+        'email' => 'adminbpbd@example.com',
+        'password' => bcrypt('admin123'),
     ]);
 }
 }

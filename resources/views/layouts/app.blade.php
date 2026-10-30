@@ -26,7 +26,7 @@
                 <ul class="navbar-nav ms-auto">
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('lapor.index') }}">Daftar Laporan</a>
+                            <a class="nav-link" href="{{ route('lapor-banjir.index') }}">Daftar Laporan</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('profile') }}">Profil Petugas</a>
@@ -39,7 +39,7 @@
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('lapor.create') }}">Buat Laporan Baru</a>
+                            <a class="nav-link" href="{{ route('lapor-banjir.create') }}">Buat Laporan Baru</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Login Petugas</a>

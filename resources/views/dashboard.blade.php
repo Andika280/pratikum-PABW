@@ -11,7 +11,7 @@
                     <p class="text-muted">Anda berhasil login ke dalam sistem BPBD Kabupaten Bandung.</p>
                     
                     <div class="mt-4">
-                        <a href="{{ route('lapor.index') }}" class="btn btn-success mx-2">
+                        <a href="{{ route('lapor-banjir.index') }}" class="btn btn-success mx-2">
                             <i class="fas fa-list"></i> Lihat Daftar Laporan
                         </a>
                         <a href="{{ route('profile') }}" class="btn btn-outline-primary mx-2">

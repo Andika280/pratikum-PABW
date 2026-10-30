@@ -44,20 +44,14 @@ Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
-    Route::get('/lapor', [LaporBanjirController::class, 'index'])->name('lapor.index');
+    Route::resource('lapor-banjir', LaporBanjirController::class);
 });
-
-Route::get('/lapor/tambah', [LaporBanjirController::class, 'create'])->name('lapor.create');
-Route::post('/lapor/kirim', [LaporBanjirController::class, 'store'])->name('lapor.store');
 
 Route::get('/home', [AgrilinkController::class, 'index'])->name('home');
 Route::get('/marketplace', [AgrilinkController::class, 'marketplace'])->name('marketplace');
 
 Route::get('/form', [DataController::class, 'form']);
 Route::post('/proses', [DataController::class, 'proses']);
-
-Route::get('/lapor-banjir', [BanjirController::class, 'index']);
-Route::post('/proses-banjir', [BanjirController::class, 'proses']);
 
 Route::get('/layanan', [LayananController::class, 'form']);
 Route::post('/layanan/proses', [LayananController::class, 'proses']);
