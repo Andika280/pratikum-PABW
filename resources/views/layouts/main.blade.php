@@ -3,35 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title') | Agrilink ID</title>
+    <title>@yield('title', 'Agrilink ID')</title>
+    <!-- Memuat Bootstrap CSS melalui CDN agar tampilan rapi -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Memuat Icon Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
-    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <!-- Memuat CSS Kustom Anda (jika ada) -->
     <link rel="stylesheet" href="{{ asset('css/App.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/beranda awal.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/beranda.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
-<body>
-    <nav>
-        <div class="navbar">
-            <h2 class="logo">
-                <a href="{{ route('home') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-leaf-fill" viewBox="0 0 16 16">
-                        <path d="M1.4 1.7c.217.289.65.84 1.725 1.274 1.093.44 2.885.774 5.834.528 2.02-.168 3.431.51 4.326 1.556C14.161 6.082 14.5 7.41 14.5 8.5q0 .344-.027.734C13.387 8.252 11.877 7.76 10.39 7.5c-2.016-.288-4.188-.445-5.59-2.045-.142-.162-.402-.102-.379.112.108.985 1.104 1.82 1.844 2.308 2.37 1.566 5.772-.118 7.6 3.071.505.8 1.374 2.7 1.75 4.292.07.298-.066.611-.354.715a.7.7 0 0 1-.161.042 1 1 0 0 1-1.08-.794c-.13-.97-.396-1.913-.868-2.77C12.173 13.386 10.565 14 8 14c-1.854 0-3.32-.544-4.45-1.435-1.124-.887-1.889-2.095-2.39-3.383-1-2.562-1-5.536-.65-7.28L.73.806z"/>
-                    </svg> Agrilink ID
-                </a>
-            </h2>
-            <ul class="menu">
-                <li><a class="{{ request()->is('cuaca') ? 'active' : '' }}" href="#">Cuaca</a></li>
-                <li><a class="{{ request()->is('edukasi') ? 'active' : '' }}" href="#">Edukasi</a></li>
-                <li><a class="{{ request()->is('marketplace') ? 'active' : '' }}" href="{{ route('marketplace') }}">Marketplace</a></li>
-                
-                <li><a class="{{ request()->is('login') ? 'active' : '' }}" href="#">Login</a></li>
-            </ul>
+<body class="bg-light">
+
+    <!-- Navbar Agrilink -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand text-success fw-bold" href="{{ route('home') }}">
+                <i class="bi bi-leaf"></i> Agrilink ID
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#">Cuaca</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Edukasi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('marketplace') }}">Marketplace</a></li>
+                    
+                    {{-- Logika Auth: Jika sudah login, tampilkan menu Produk dan Logout --}}
+                    @auth
+                        <li class="nav-item"><a class="nav-link fw-bold text-success" href="{{ route('produk.index') }}">Produk Saya</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle"></i> {{ Auth::user()->name }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    {{-- Tombol Logout --}}
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item text-danger">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @else
+                    <li class="nav-item">
+                        <a class="btn btn-outline-success ms-3" href="{{ route('login', ['app' => 'agrilink']) }}">Login</a>
+                    </li>
+                    @endauth
+                </ul>
+            </div>
         </div>
     </nav>
 
-    @yield('content')
+    <!-- Konten Utama -->
+    <main class="py-4">
+        @yield('content')
+    </main>
 
+    <!-- Memuat Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -7,9 +7,15 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
-        return view('auth.login');
+        $intendedUrl = session()->get('url.intended', '');
+        
+        if (str_contains($intendedUrl, 'lapor-banjir')) {
+            return view('auth.login_banjir');
+        }
+
+        return view('auth.login_agrilink');
     }
 
     public function store(Request $request)

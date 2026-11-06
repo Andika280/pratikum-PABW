@@ -2,15 +2,16 @@
 
 @section('title', 'Beranda')
 
+<link rel="stylesheet" href="{{ asset('css/beranda awal.css') }}">
+
 @section('content')
 <main class="home-page">
-    <section class="hero" style="background-image: linear-gradient(to right, rgba(27, 94, 32, 0.85), rgba(27, 94, 32, 0.4)), url('{{ asset('images/Gambar 2.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-        <div class="container hero-content">
-            <h1>Selamat Datang di Agrilink ID</h1>
-            <p>Mewujudkan masa depan pertanian digital yang lebih cerdas dan terhubung.</p>
-            <div class="hero-actions">
-                <a href="{{ route('marketplace') }}" class="btn btn-hero">
-                    Mulai Sekarang
+    <section class="hero" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ asset('images/Gambar 2.jpg') }}') center/cover; padding: 80px 0; color: white;">
+    <div class="container hero-content text-center text-md-start">
+        <h1 class="fw-bold display-5 text-white mb-3">Selamat Datang di Agrilink ID</h1>
+        <p class="fs-5 text-light mb-4 col-md-8">Mewujudkan masa depan pertanian digital yang lebih cerdas dan terhubung.</p>
+        <div class="hero-actions">
+            <a href="{{ route('marketplace') }}" class="btn btn-success btn-lg px-4 fw-bold shadow">Mulai Sekarang</a>
                 </a>
             </div>
         </div>
