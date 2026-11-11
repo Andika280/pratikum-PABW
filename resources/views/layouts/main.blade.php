@@ -28,11 +28,9 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="#">Cuaca</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Edukasi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('marketplace') }}">Marketplace</a></li>
-                    
-                    {{-- Logika Auth: Jika sudah login, tampilkan menu Produk dan Logout --}}
+                        <a class="nav-link" href="{{ url('/marketplace') }}">Marketplace</a>                                      
                     @auth
-                        <li class="nav-item"><a class="nav-link fw-bold text-success" href="{{ route('produk.index') }}">Produk Saya</a></li>
+                        <li class="nav-item"><a class="nav-link fw-bold text-success" href="{{ url('/petani/produk') }}">Produk Saya</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-person-circle"></i> {{ Auth::user()->name }}

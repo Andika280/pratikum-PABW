@@ -1,0 +1,11 @@
+{
+    "name": "Petani",
+    "alias": "petani",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Petani\\Providers\\PetaniServiceProvider"
+    ],
+    "files": []
+}

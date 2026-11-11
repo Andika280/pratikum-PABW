@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LaporBanjirController;
 use App\Http\Controllers\AgrilinkController;
-use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\LayananController;
 
@@ -20,20 +20,23 @@ Route::get('/login', [LoginController::class, 'create'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
-
 Route::get('/home', [AgrilinkController::class, 'index'])->name('home');
-Route::get('/marketplace', [AgrilinkController::class, 'marketplace'])->name('marketplace');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+    
+    Route::get('/dashboard', function () {
+        if (Auth::user()->role === 'admin') {
+            return redirect('/petani/produk'); 
+        }
+        return redirect('/marketplace'); 
+    })->name('dashboard');
+
     Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
     
-
     Route::resource('lapor-banjir', LaporBanjirController::class);
-    
-    Route::resource('produk', ProdukController::class);
 });
 
+// Rute tugas lama
 Route::get('/form', [DataController::class, 'form']);
 Route::post('/proses', [DataController::class, 'proses']);
 Route::get('/layanan', [LayananController::class, 'form']);

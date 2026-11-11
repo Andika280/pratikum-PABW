@@ -11,14 +11,14 @@
         <h1 class="fw-bold display-5 text-white mb-3">Selamat Datang di Agrilink ID</h1>
         <p class="fs-5 text-light mb-4 col-md-8">Mewujudkan masa depan pertanian digital yang lebih cerdas dan terhubung.</p>
         <div class="hero-actions">
-            <a href="{{ route('marketplace') }}" class="btn btn-success btn-lg px-4 fw-bold shadow">Mulai Sekarang</a>
+            <a href="{{ url('/marketplace') }}" class="btn btn-success btn-lg px-4 fw-bold shadow">Mulai Sekarang</a>
                 </a>
             </div>
         </div>
 
         <div class="features-preview container">
             <div class="feature-card">
-                <a href="{{ route('marketplace') }}" style="text-decoration:none; color:inherit;">
+                <a href="{{ url('/marketplace') }}" style="text-decoration:none; color:inherit;">
                     <i class="bi bi-shop"></i>
                     <h3>Marketplace</h3>
                     <p>Jual beli hasil panen langsung dari petani ke konsumen.</p>
