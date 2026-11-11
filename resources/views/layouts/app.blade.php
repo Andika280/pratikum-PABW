@@ -6,16 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Sistem LaporBanjir BPBD')</title>
     
-    <!-- CSS Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body class="d-flex flex-column h-100 bg-light">
 
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
         <div class="container">
             <a class="navbar-brand fw-bold" href="/">Sistem LaporBanjir BPBD Kab. Bandung</a>
@@ -50,7 +47,6 @@
         </div>
     </nav>
 
-    <!-- Content Wrapper (flex-shrink-0 memastikan konten mengambil ruang secara proporsional) -->
     <main class="flex-shrink-0 py-4">
         <div class="container">
             @if(session('success'))
@@ -71,14 +67,13 @@
         </div>
     </main>
 
-    <!-- Footer (mt-auto akan mendorong footer ke posisi paling bawah secara otomatis) -->
     <footer class="footer mt-auto py-3 bg-white border-top text-center text-muted">
         <div class="container">
             <small>&copy; 2026 BPBD - Andika Rahma Raihan (707012530001)</small>
         </div>
     </footer>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
 </html>

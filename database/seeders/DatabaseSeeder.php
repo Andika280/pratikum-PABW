@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin Agrilink',
             'email' => 'admin@example.com',
             'password' => Hash::make('admin123'),
+            'role' => 'admin',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
