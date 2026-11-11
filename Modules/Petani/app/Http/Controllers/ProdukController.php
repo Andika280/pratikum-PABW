@@ -69,19 +69,43 @@ class ProdukController extends Controller
         return response()->json(Produk::findOrFail($id));
     }
 
-    public function update(ProdukRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $produk = Produk::findOrFail($id);
-        $data = $request->validated();
 
-        if ($request->hasFile('foto_produk')) {
-            if ($produk->foto_produk) {
-                Storage::disk('public')->delete($produk->foto_produk);
-            }
-            $data['foto_produk'] = $request->file('foto_produk')->store('produk_foto', 'public');
+        $request->validate([
+            'nama_produk' => 'required',
+            'kategori_id' => 'required',
+            'harga_per_kg' => 'required|numeric',
+            'stok_kg' => 'required|numeric',
+            'deskripsi' => 'required',
+            'foto' => 'nullable|image|max:2048',
+            'foto_produk' => 'nullable|image|max:2048',
+        ]);
+
+        $produk->nama_produk = $request->nama_produk;
+        $produk->kategori_id = $request->kategori_id;
+        $produk->harga_per_kg = $request->harga_per_kg; 
+        $produk->stok_kg = $request->stok_kg;         
+        $produk->deskripsi = $request->deskripsi;
+        if ($request->has('deskripsi')) {
+            $produk->deskripsi = $request->deskripsi;
         }
 
-        $produk->update($data);
+        if ($request->hasFile('foto')) {
+            if ($produk->foto && Storage::disk('public')->exists($produk->foto)) {
+                Storage::disk('public')->delete($produk->foto);
+            }
+            $produk->foto = $request->file('foto')->store('produk', 'public');
+        } elseif ($request->hasFile('foto_produk')) {
+            if ($produk->foto && Storage::disk('public')->exists($produk->foto)) {
+                Storage::disk('public')->delete($produk->foto);
+            }
+            $produk->foto = $request->file('foto_produk')->store('produk', 'public');
+        }
+
+        $produk->save();
+
         return response()->json(['success' => 'Produk berhasil diperbarui!']);
     }
 

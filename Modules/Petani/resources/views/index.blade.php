@@ -46,8 +46,7 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label class="form-label">Nama Produk</label>
-                    <input type="text" class="form-control" id="nama_produk" name="nama_produk" required>
-                </div>
+                    <input type="text" class="form-control" id="nama_produk" name="nama_produk" required>                </div>
 
                 <div class="mb-3">
                     <label class="form-label">Kategori ID</label>
@@ -61,7 +60,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Stok (Kg)</label>
-                    <input type="number" class="form-control" id="stok_kg" name="stok_kg" required>
+                   <input type="number" class="form-control" id="stok_kg" name="stok_kg" required>
                 </div>
 
                 <div class="mb-3">
@@ -71,7 +70,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Foto Produk</label>
-                    <input type="file" class="form-control" id="foto" name="foto" accept="image/*" required>
+                    <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
                 </div>
             </div>
             <div class="modal-footer">
@@ -143,6 +142,7 @@ $(document).ready(function () {
         e.preventDefault();
         let id = $('#produk_id').val();
         let formData = new FormData(this);
+        
         let url = id ? "/petani/produk/" + id : "{{ route('petani.produk.store') }}";
         
         if (id) {
@@ -180,11 +180,11 @@ $(document).ready(function () {
         $.get("/petani/produk/" + id + "/edit", function (data) {
             $('#produk_id').val(data.id);
             $('#nama_produk').val(data.nama_produk);
+            $('#kategori_id').val(data.kategori_id); 
             $('#harga_per_kg').val(data.harga_per_kg);
             $('#stok_kg').val(data.stok_kg);
             $('#deskripsi').val(data.deskripsi);
             $('#modalTitle').text('Edit Produk');
-            // Sinkron: Buka #modalTambah
             $('#modalTambah').modal('show');
         }).fail(function () {
             alert('Gagal mengambil data produk.');
